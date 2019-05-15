@@ -12,7 +12,7 @@ sScheduleFile="/home/pi/git/fermentor/schedule.var"
 sLogFile="/home/pi/git/fermentor/logfile.log"
 sStatusFile="/home/pi/git/fermentor/status.log"
 sBannerFile="/home/pi/git/fermentor/banner"
-iHyst=1
+iHyst=1000
 iCycleFreq=10
 
 iSwitchOn=
@@ -97,10 +97,10 @@ while [ 1 -eq 1 ]; do
     # Print status
     cat ${sBannerFile} > ${sStatusFile}
     printf "%-20s%-10s\n" "Last cycle:" "${sTimestamp}" >> ${sStatusFile}
-    printf "%-20s%10s deg\n" "Temperature:" "${iPV}" >> ${sStatusFile}
-    printf "%-20s%10s deg\n" "Setpoint:" "${iSP}" >> ${sStatusFile}
-    printf "%-20s%10s deg\n" "Switch on @:" "${iSwitchOn}" >> ${sStatusFile}
-    printf "%-20s%10s deg\n" "Switch off @:" "${iSwitchOff}" >> ${sStatusFile}
+    printf "%-20s%10s\n" "Temperature:" "${iPV}" >> ${sStatusFile}
+    printf "%-20s%10s\n" "Setpoint:" "${iSP}" >> ${sStatusFile}
+    printf "%-20s%10s\n" "Switch on @:" "${iSwitchOn}" >> ${sStatusFile}
+    printf "%-20s%10s\n" "Switch off @:" "${iSwitchOff}" >> ${sStatusFile}
     printf "%-20s%10s\n" "Relay status:" "${iPowerOn}" >> ${sStatusFile}
     printf "%-20s%10s\n" "Fallback active:" "${iFallbackActive}" >> ${sStatusFile}
 
