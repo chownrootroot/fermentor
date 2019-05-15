@@ -26,6 +26,11 @@ if [ ! -d "/sys/class/gpio/gpio${iGPIOOutRelay}" ]; then
     printf "%s\n" "out" > /sys/class/gpio/gpio${iGPIOOutRelay}/direction
 fi
 
+# Create file for PV
+if [ ! -f "${sPVFile}" ]; then
+    printf "%s\n" "1" > ${sPVFile}
+fi
+
 # Print start to log
 sTimestamp=$(date +%Y%m%d" "%H:%M:%S)
 if [ ! -f "${sLogFile}" ]; then
