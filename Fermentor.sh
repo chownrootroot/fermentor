@@ -19,6 +19,7 @@ iSwitchOn=
 iSwitchOff=
 sScheduleDay=
 sScheduleSelSP=
+iScriptStarted=1
 
 # Activate GPIO
 if [ ! -d "/sys/class/gpio/gpio${iGPIOOutRelay}" ]; then
@@ -34,9 +35,8 @@ fi
 # Print start to log
 sTimestamp=$(date +%Y%m%d" "%H:%M:%S)
 if [ ! -f "${sLogFile}" ]; then
-    printf "%s\n" "Time;PV;SP;PowerOn;Fallback" > ${sLogFile}
+    printf "%s\n" "Time;PV;SP;PowerOn;Fallback;Comment" > ${sLogFile}
 fi
-printf "%s;%s\n" "${sTimestamp}" "Script started" >> ${sLogFile}
 
 # Main loop
 while [ 1 -eq 1 ]; do
@@ -69,8 +69,8 @@ while [ 1 -eq 1 ]; do
     iPV=$(cat ${sPVFile})
 
     # Set triggers
-    iSwitchOn=$((${iSP}-${iHyst}))
-    iSwitchOff=$((${iSP}+${iHyst}))
+    iSwitchOn=$((${iSP}+${iHyst}))
+    iSwitchOff=$((${iSP}-${iHyst}))
 
     # Evaluate temperature
     if [ "${iPV}" -gt "${iSwitchOn}" ]; then
@@ -87,8 +87,13 @@ while [ 1 -eq 1 ]; do
     fi
 
     # Log file
-    printf "%s;%s;%s;%s;%s\n" "${sTimestamp}" "${iPV}" "${iSP}" "${iPowerOn}" "${iFallbackActive}" >> ${sLogFile}
- 
+    if [ "${iScriptStarted}" = "1" ]; then
+        printf "%s;%s;%s;%s;%s;%s\n" "${sTimestamp}" "${iPV}" "${iSP}" "${iPowerOn}" "${iFallbackActive}" "Script started" >> ${sLogFile}
+        iScriptStarted=0
+    else
+        printf "%s;%s;%s;%s;%s;\n" "${sTimestamp}" "${iPV}" "${iSP}" "${iPowerOn}" "${iFallbackActive}" >> ${sLogFile}
+    fi
+
     # Print status
     cat ${sBannerFile} > ${sStatusFile}
     printf "%-20s%-10s\n" "Last cycle:" "${sTimestamp}" >> ${sStatusFile}
