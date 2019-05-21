@@ -12,6 +12,7 @@ sScheduleFile="/home/pi/git/fermentor/schedule.var"
 sLogFile="/home/pi/git/fermentor/logfile.log"
 sStatusFile="/home/pi/git/fermentor/status.log"
 sBannerFile="/home/pi/git/fermentor/banner"
+sTempBusPath="/sys/bus/w1/devices/28-041753e4e2ff/w1_slave"
 iHyst=1000
 iCycleFreq=10
 
@@ -63,6 +64,9 @@ while [ 1 -eq 1 ]; do
     else
         iFallbackActive=0
     fi
+
+    # Read from w1 bus
+    cat ${sTempBusPath} | awk -F "t=" '{printf "%s", $2}' > ${sPVFile}
 
     # Read files
     iSP=$(cat ${sSPFile})
