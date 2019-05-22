@@ -6,7 +6,3 @@ Add to roots crontab file
 
 Add to /boot/config.txt
 >dtoverlay=w1-gpio,gpiopin=4,pullup=on
-
-hej
-på
-dej
