@@ -13,7 +13,7 @@ sLogFile="/home/pi/git/fermentor/logfile.log"
 sStatusFile="/home/pi/git/fermentor/status.log"
 sBannerFile="/home/pi/git/fermentor/banner"
 sTempBusPath="/sys/bus/w1/devices/28-041753e4e2ff/w1_slave"
-iHyst=1000
+iHyst=300
 iCycleFreq=10
 
 iSwitchOn=
@@ -74,7 +74,7 @@ while [ 1 -eq 1 ]; do
 
     # Set triggers
     iSwitchOn=$((${iSP}+${iHyst}))
-    iSwitchOff=$((${iSP}-${iHyst}))
+    iSwitchOff=${iSP}
 
     # Evaluate temperature
     if [ "${iPV}" -gt "${iSwitchOn}" ]; then
