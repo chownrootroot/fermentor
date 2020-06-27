@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # Config
 iGPIOOutRelay=2
@@ -8,13 +8,13 @@ sFallbackTemp=8
 sSPFile="/home/pi/git/fermentor/setpoint.var"
 sPVFile="/home/pi/git/fermentor/processval.var"
 sFallbackFile="/home/pi/git/fermentor/fallback.var"
-sScheduleFile="/home/pi/git/fermentor/schedule.var"
+sScheduleFile="/home/pi/git/fermentor/schedule.csv"
 sLogFile="/home/pi/git/fermentor/logfile.log"
 sStatusFile="/home/pi/git/fermentor/status.log"
 sBannerFile="/home/pi/git/fermentor/banner"
 sTempBusPath="/sys/bus/w1/devices/28-041753e4e2ff/w1_slave"
 iHyst=300
-iCycleFreq=10
+iCycleFreq=60
 
 iSwitchOn=
 iSwitchOff=
